@@ -220,27 +220,115 @@ background-color: black;
             font-weight: bold;
         }
 
+        /* Container for the switch and label */
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Position the switch to the left of the text */
+.switch-label {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+/* Smaller switch container */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 16px;
+}
+
+/* Hide the actual checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider (the switch itself) */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 16px;
+}
+
+/* The circle inside the slider */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* When the checkbox is checked, change the background to green */
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+/* Move the slider when the checkbox is checked */
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* Round slider corners */
+.slider.round {
+  border-radius: 16px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
     </style>
 </head>
 <body>
     <h1>UFA Scorigami</h1>
 <div class="switches-container">
-    <label>
+    <div class="switch-container">
+    <label class="switch">
         <input type="checkbox" id="colorblindModeSwitch">
-        Colorblind Mode
+        <span class="slider"></span>
     </label>
-    <label>
-        <input type="checkbox" id="showGradientSwitch">
-        Show Gradient
-    </label>
-    <label>
-        <input type="checkbox" id="showExtendedRowsSwitch">
-        Show Extended Rows
-    </label>
-    <label>
-        <input type="checkbox" id="showCountSwitch">
-        Show Count
-    </label>
+    <span class="switch-label">Colorblind Mode</span>
+    </div>
+
+        <div class="switch-container">
+        <label class="switch">
+            <input type="checkbox" id="showGradientSwitch">
+            <span class="slider"></span>
+        </label>
+        <span class="switch-label">Show Gradient</span>
+        </div>
+
+            <div class="switch-container">
+            <label class="switch">
+                <input type="checkbox" id="showExtendedRowsSwitch">
+                <span class="slider"></span>
+            </label>
+            <span class="switch-label">Show Empty Rows</span>
+            </div>
+
+                <div class="switch-container">
+                <label class="switch">
+                    <input type="checkbox" id="showCountSwitch">
+                    <span class="slider"></span>
+                </label>
+                <span id="showCountLabel" class="switch-label">Show Count</span>
+                </div>
+
     <label>
         <select id="textContentDropdown">
             <option class="dropdown-option disabled" value="" disabled selected>Select a mode</option>
@@ -570,6 +658,7 @@ function calculateYearGradientColor(year) {
                     }
                 }
             }
+            
                 // Add event listeners
 colorblindModeSwitch.addEventListener("change", updateTable);
 showGradientSwitch.addEventListener("change", rebuildTable);
@@ -849,6 +938,23 @@ textContentDropdown.addEventListener("change", function () {
         });
     }
 });
+
+// Function to update the text of the switch label
+function updateShowCountLabel() {
+  const yearSelection = document.getElementById('textContentDropdown').value;
+  const showCountLabel = document.getElementById('showCountLabel');
+
+  if (yearSelection === 'firstYear') {
+    showCountLabel.textContent = 'Show Year';
+  } else if (yearSelection === 'lastYear') {
+    showCountLabel.textContent = 'Show Year';
+  } else {
+    showCountLabel.textContent = 'Show Count';
+  }
+}
+
+// Event listener for the year selection dropdown
+document.getElementById('textContentDropdown').addEventListener('change', updateShowCountLabel);
  
     </script>
 </body>
