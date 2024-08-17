@@ -571,11 +571,12 @@ function calculateYearGradientColor(year) {
                 }
             }
                 // Add event listeners
-                colorblindModeSwitch.addEventListener("change", updateTable);
-            showExtendedRowsSwitch.addEventListener("change", updateTable);
-            showGradientSwitch.addEventListener("change", function () {
-                updateTable();            
+colorblindModeSwitch.addEventListener("change", updateTable);
+showGradientSwitch.addEventListener("change", rebuildTable);
+showExtendedRowsSwitch.addEventListener("change", rebuildTable);
 
+// Function to rebuild the table
+function rebuildTable() {
     // Get the current tbody
     const tbody = scoresTable.tBodies[0];
     
@@ -589,10 +590,11 @@ function calculateYearGradientColor(year) {
     const headerRow1 = document.createElement("tr");
     const headerCell = document.createElement("th");
     headerCell.classList.add("winning-score");
-    headerCell.setAttribute("colspan", '47',); // Adjust colspan for the winning scores
+    headerCell.setAttribute("colspan", '47'); // Adjust colspan for the winning scores
     headerCell.textContent = "Winning Team Score";
     headerRow1.appendChild(headerCell);
     scoresTable.tHead.appendChild(headerRow1);
+    
     const headerRow2 = document.createElement("tr");
     headerRow2.appendChild(document.createElement("th")); // Empty cell for alignment
     headerRow2.appendChild(document.createElement("th")); // Empty cell for alignment
@@ -601,7 +603,6 @@ function calculateYearGradientColor(year) {
         th.textContent = i;
         headerRow2.appendChild(th);
     }
-    
     scoresTable.tHead.appendChild(headerRow2);
  
     // Clear the tbody
@@ -653,7 +654,8 @@ function calculateYearGradientColor(year) {
             // Check if the game exists in the provided data
             if (count > 0) {
                 const gradientColor = calculateGradientColor(count, firstYear, lastYear);
-                td.style.background = showGradientSwitch.checked ? `linear-gradient(${gradientColor}, ${gradientColor})` : (colorblindModeSwitch.checked ? 'gray' : 'green');
+                td.style.background = showGradientSwitch.checked ? `linear-gradient(${gradientColor}, ${gradientColor})` : 
+                                        (colorblindModeSwitch.checked ? 'gray' : 'green');
                 td.classList.add("filled");
                 content.style.display = showCountSwitch.checked ? "block" : "none"; // Show content if "Show Count" switch is checked
             } else {
@@ -671,7 +673,8 @@ function calculateYearGradientColor(year) {
  
     updateGradients();
     updateTable();
-});
+}
+
  
 textContentDropdown.addEventListener("change", function () {
                 updateTable();
