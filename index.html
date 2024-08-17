@@ -406,7 +406,7 @@ function populateScoresTable(scores) {
                         // Check if the game exists in the provided data
                         if (count > 0) {
                             const gradientColor = calculateGradientColor(count, firstYear, lastYear);
-                            td.style.background = showGradientSwitch.checked ? `linear-gradient(${gradientColor}, ${gradientColor})` : (colorblindModeSwitch.checked ? 'gray' : 'green');
+                            td.style.background = showGradientSwitch.checked ? `linear-gradient(${gradientColor}, ${gradientColor})` : (colorblindModeSwitch.checked ? 'purple' : 'green');
                             td.classList.add("filled");
                             content.style.display = showCountSwitch.checked ? "block" : "none"; // Show content if "Show Count" switch is checked
                         } else {
@@ -434,7 +434,7 @@ function populateScoresTable(scores) {
                         case 'lastYear':
                             return calculateYearGradientColor(parseInt(lastYear));
                         default:
-                            return 'gray';
+                            return 'purple';
                     }
                 }
  
@@ -534,7 +534,7 @@ function calculateYearGradientColor(year) {
                         if (showGradientSwitch.checked) {
                             filledCell.style.background = `linear-gradient(${gradientColor}, ${gradientColor})`;
                         } else {
-                            filledCell.style.background = colorblindModeSwitch.checked ? 'gray' : 'green';
+                            filledCell.style.background = colorblindModeSwitch.checked ? 'purple' : 'green';
                         }
  
                     }
@@ -655,7 +655,7 @@ function rebuildTable() {
             if (count > 0) {
                 const gradientColor = calculateGradientColor(count, firstYear, lastYear);
                 td.style.background = showGradientSwitch.checked ? `linear-gradient(${gradientColor}, ${gradientColor})` : 
-                                        (colorblindModeSwitch.checked ? 'gray' : 'green');
+                                        (colorblindModeSwitch.checked ? 'purple' : 'green');
                 td.classList.add("filled");
                 content.style.display = showCountSwitch.checked ? "block" : "none"; // Show content if "Show Count" switch is checked
             } else {
