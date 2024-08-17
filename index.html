@@ -558,10 +558,11 @@ function calculateYearGradientColor(year) {
                         // Apply red/green/white colors when gradient is off
                         filledCell.style.visibility = 'visible'; // Ensure cells are visible when gradient is off
                         if (firstYear === selectedYear) {
-                            filledCell.style.backgroundColor = colorblindModeSwitch.checked ? 'blue' : 'red'; // Set background color to red/blue
+                            filledCell.style.backgroundColor = colorblindModeSwitch.checked ? 'green' : 'red'; // Set background color to red/blue
                             filledCell.style.color = 'white'
                         } else if (firstYear < selectedYear) {
-                            filledCell.style.backgroundColor = colorblindModeSwitch.checked ? 'gray' : 'green'; // Set background color to green
+                            filledCell.style.backgroundColor = colorblindModeSwitch.checked ? 'purple' : 'green'; // Set background color to green
+                            filledCell.style.color = 'white'
                         } else {
                             filledCell.style.backgroundColor = "rgba(211,211,211,0.3)"; // Set background color to white
                             filledCell.style.color = "rgba(211,211,211,0.3)";
@@ -571,10 +572,9 @@ function calculateYearGradientColor(year) {
             }
                 // Add event listeners
                 colorblindModeSwitch.addEventListener("change", updateTable);
-            showGradientSwitch.addEventListener("change", updateTable);
-            showExtendedRowsSwitch.addEventListener("change", function () {
-                updateTable();
-            
+            showExtendedRowsSwitch.addEventListener("change", updateTable);
+            showGradientSwitch.addEventListener("change", function () {
+                updateTable();            
 
     // Get the current tbody
     const tbody = scoresTable.tBodies[0];
