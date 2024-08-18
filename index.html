@@ -292,6 +292,27 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: white;
+    border: 1px solid black;
+    z-index: 1000;
+}
+
+.popup.show {
+    display: block;
+}
+
+#popup-content {
+    max-width: 300px;
+}
+
+
     </style>
 </head>
 <body>
@@ -333,8 +354,8 @@ input:checked + .slider:before {
         <select id="textContentDropdown">
             <option class="dropdown-option disabled" value="" disabled selected>Select a mode</option>
             <option value="count">Count</option>
-            <option value="firstYear">First Year</option>
-            <option value="lastYear">Last Year</option>
+            <option value="firstYear">First Game</option>
+            <option value="lastYear">Lastest Game</option>
         </select>
     </label>
 </div>
@@ -362,6 +383,14 @@ input:checked + .slider:before {
             <!-- Populate the y-axis with losing team scores and fill in the scores -->
         </tbody>
     </table>
+
+    <div id="score-popup" class="popup">
+        <div id="popup-content">
+            <p id="popup-text"></p>
+            <a id="popup-link" href="#" target="_blank">View All Games</a>
+        </div>
+    </div>
+    
  
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -490,6 +519,11 @@ function populateScoresTable(scores) {
                                               textContentDropdown.value === 'lastYear' ? lastYear : count;
  
                         td.appendChild(content);
+
+                        // Add event listener for click to show popup
+            td.addEventListener('click', function() {
+                showPopup(winningScore, j, firstYear, lastYear);
+            });
  
                         // Check if the game exists in the provided data
                         if (count > 0) {
@@ -537,7 +571,7 @@ function populateScoresTable(scores) {
     } else {
         // Blue to Yellow-Orange for standard mode
         hueStart = 240; // Blue hue
-        hueEnd = 30; // Yellow-Orange hue
+        hueEnd = 0; // Red hue
     }
 
     const minCount = Math.min(...Array.from(scoreCountMap.values()));
@@ -567,7 +601,7 @@ function calculateYearGradientColor(year) {
     } else {
         // Blue to Yellow-Orange for standard mode
         hueStart = 240; // Blue hue
-        hueEnd = 30; // Yellow-Orange hue
+        hueEnd = 0; // Red hue
     }
 
     const minYear = Math.min(...Array.from(firstYearMap.values()));
@@ -663,6 +697,7 @@ function calculateYearGradientColor(year) {
 colorblindModeSwitch.addEventListener("change", updateTable);
 showGradientSwitch.addEventListener("change", rebuildTable);
 showExtendedRowsSwitch.addEventListener("change", rebuildTable);
+textContentDropdown.addEventListener("change", rebuildTable);
 
 // Function to rebuild the table
 function rebuildTable() {
@@ -955,6 +990,27 @@ function updateShowCountLabel() {
 
 // Event listener for the year selection dropdown
 document.getElementById('textContentDropdown').addEventListener('change', updateShowCountLabel);
+
+function showPopup(winningScore, losingScore, firstYear, lastYear) {
+    const popup = document.getElementById('score-popup');
+    const popupText = document.getElementById('popup-text');
+    const popupLink = document.getElementById('popup-link');
+
+    // Update the popup content
+    popupText.textContent = `Score: ${winningScore}-${losingScore}\nFirst Year: ${firstYear}\nLast Year: ${lastYear}`;
+    popupLink.href = `https://www.example.com/games?score=${winningScore}-${losingScore}`; // Replace with actual URL
+
+    // Show the popup
+    popup.classList.add('show');
+
+    // Close popup when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!popup.contains(event.target)) {
+            popup.classList.remove('show');
+        }
+    });
+}
+
  
     </script>
 </body>
