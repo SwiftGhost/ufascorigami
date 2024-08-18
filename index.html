@@ -292,27 +292,6 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.popup {
-    display: none;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    background-color: white;
-    border: 1px solid black;
-    z-index: 1000;
-}
-
-.popup.show {
-    display: block;
-}
-
-#popup-content {
-    max-width: 300px;
-}
-
-
     </style>
 </head>
 <body>
@@ -383,14 +362,6 @@ input:checked + .slider:before {
             <!-- Populate the y-axis with losing team scores and fill in the scores -->
         </tbody>
     </table>
-
-    <div id="score-popup" class="popup">
-        <div id="popup-content">
-            <p id="popup-text"></p>
-            <a id="popup-link" href="#" target="_blank">View All Games</a>
-        </div>
-    </div>
-    
  
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -520,11 +491,6 @@ function populateScoresTable(scores) {
  
                         td.appendChild(content);
 
-                        // Add event listener for click to show popup
-            td.addEventListener('click', function() {
-                showPopup(winningScore, j, firstYear, lastYear);
-            });
- 
                         // Check if the game exists in the provided data
                         if (count > 0) {
                             const gradientColor = calculateGradientColor(count, firstYear, lastYear);
@@ -990,27 +956,6 @@ function updateShowCountLabel() {
 
 // Event listener for the year selection dropdown
 document.getElementById('textContentDropdown').addEventListener('change', updateShowCountLabel);
-
-function showPopup(winningScore, losingScore, firstYear, lastYear) {
-    const popup = document.getElementById('score-popup');
-    const popupText = document.getElementById('popup-text');
-    const popupLink = document.getElementById('popup-link');
-
-    // Update the popup content
-    popupText.textContent = `Score: ${winningScore}-${losingScore}\nFirst Year: ${firstYear}\nLast Year: ${lastYear}`;
-    popupLink.href = `https://www.example.com/games?score=${winningScore}-${losingScore}`; // Replace with actual URL
-
-    // Show the popup
-    popup.classList.add('show');
-
-    // Close popup when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!popup.contains(event.target)) {
-            popup.classList.remove('show');
-        }
-    });
-}
-
  
     </script>
 </body>
