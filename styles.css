@@ -1,0 +1,286 @@
+table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 1600px; /* Limit the maximum width of the table */
+            margin: 0 auto; /* Center the table */
+        }
+ 
+        table, th, td {
+            user-select: none;
+        }
+ 
+        th, td {
+            width: 30px;
+            height: 20px;
+            text-align: center;
+            position: relative;
+            color: rgba(211, 211, 211, 0);
+            font-size: 12px;
+        }
+ 
+        th, .impossible, td.losing-score {
+            color: black;
+        }
+ 
+        th.losing-score-header {
+            writing-mode: vertical-rl; /* Make the text vertical */
+            transform: rotate(180deg); /* Rotate text */
+            white-space: nowrap;
+            font-weight: bold; /* Make the losing team score headers bold */
+            background-color: white;
+            font-size: medium;
+            overflow: hidden;
+        }
+ 
+        td.losing-score {
+            font-weight: bold; /* Make the losing team score cells bold */
+            position: relative;
+        }
+ 
+        td.filled {
+            background-color: green;
+            background-size: cover;
+            color: white;
+        }
+ 
+        td.impossible {
+            background-color: black;
+        }
+ 
+        .count-text, .gradient-switch, .extended-rows-switch {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+ 
+        .dropdown-option.disabled {
+            color: #a9a9a9; /* Darker gray color */
+            pointer-events: none; /* Make the option unclickable */
+        }
+ 
+        .highlighted-row, .highlighted-column {
+    background-color: rgba(211, 211, 211, 0.3); /* Light gray with 30% opacity */
+    color: rgba(211, 211, 211, 0);
+}
+ 
+.highlighted-header, .highlighted-losing-header {
+    background-color: yellow;
+    font-weight: bold;
+    font-size: medium;
+    color: black;
+}
+
+td.highlighted-column::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(211, 211, 211, 0.3); /* Semi-transparent gray */
+    mix-blend-mode: screen; /* Blend mode */
+    z-index: 1; /* Place it above the background but below the text */
+    pointer-events: none; /* Ensure it doesn't interfere with interactions */
+}
+ 
+tr.highlighted-row td:not(:first-child)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(211, 211, 211, 0.3); /* Semi-transparent gray */
+    mix-blend-mode: screen; /* Blend mode */
+    z-index: 1; /* Place it above the background but below the text */
+    pointer-events: none; /* Ensure it doesn't interfere with interactions */
+}
+
+td.impossible::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 2; /* Above the highlight but below the text */
+    pointer-events: none;
+}
+
+td:not(.losing-score):hover {
+    background-color: rgba(211, 211, 211, 0.3); /* Slightly lighter color */
+    mix-blend-mode: lighten;
+    z-index: 4; /* Ensure it's on top of other highlights */
+}
+
+h1 {
+    text-align: center;
+    background-color: green;
+    color: white;
+    padding: 20px;
+    font-size: 2em;
+    font-weight: bold;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    margin: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.switches-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.winning-score {
+    font-size: medium;
+    font-weight: bold;
+}
+
+tr.highlighted-row:nth-child(1) td:nth-child(2)::before {
+background-color: black;
+}
+
+#yearSliderContainer {
+            height: 50px;
+            display: flex;
+            margin-top: 10px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #yearSlider {
+            -webkit-appearance: none;
+            appearance: none;
+            display: none;
+            width: 35%;
+            outline: none;
+            position: relative;
+        }
+
+        #yearSlider::-webkit-slider-runnable-track {
+            width: 35%;
+            height: 15px;
+            background: lightgray;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        #yearSlider::-moz-range-track {
+            width: 35%;
+            height: 15px;
+            background: lightgray;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        #yearSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20px;
+            width: 20px;
+            background: red;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            top: 50%;
+            transform: translate(0%, -50%);
+        }
+
+        #yearSlider::-moz-range-thumb {
+            height: 20px;
+            width: 20px;
+            background: red;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #yearLabel {
+            display: none;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Container for the switch and label */
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Position the switch to the left of the text */
+.switch-label {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+/* Smaller switch container */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 16px;
+}
+
+/* Hide the actual checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider (the switch itself) */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 16px;
+}
+
+/* The circle inside the slider */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+/* When the checkbox is checked, change the background to green */
+input:checked + .slider {
+  background-color: #4CAF50;
+}
+
+/* Move the slider when the checkbox is checked */
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* Round slider corners */
+.slider.round {
+  border-radius: 16px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
