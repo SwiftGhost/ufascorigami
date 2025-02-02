@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let currentSliderValue = parseInt(yearSlider.value);
 
             // Fetch data from the API
-            fetch('https://www.backend.audlstats.com/api/v1/games?date=2012-04-14:')
+            fetch('https://www.backend.ufastats.com/api/v1/games?date=2012-04-14:')
                 .then(response => response.json())
                 .then(data => {
                     // Process the API response
